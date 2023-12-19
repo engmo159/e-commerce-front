@@ -4,24 +4,27 @@ import styled, { css } from 'styled-components'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   size?: string
-  primary?: ReactNode
-  white?: ReactNode
-  outline?: ReactNode
+  primary?: boolean
+  white?: boolean
+  outline?: boolean
 }
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button.withConfig({
+  shouldForwardProp: prop => !['white', 'outline', 'primary'].includes(prop),
+})<ButtonProps>`
   border: none;
   padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
   display: inline-flex;
-  align-items: center
-    ${props =>
-      props.size === 'l' &&
-      css`
-        font-size: 1.2rem;
-        padding: 10px 20px;
-      `};
+  align-items: center;
+
+  ${props =>
+    props.size === 'l' &&
+    css`
+      font-size: 1.2rem;
+      padding: 10px 20px;
+    `};
   ${props =>
     props.primary &&
     css`
