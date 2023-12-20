@@ -3,12 +3,13 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import Center from './Center'
-
+import { colors } from '../theme/colors'
+import { spacing } from '../theme/spacing'
 const StyledHeader = styled.header`
-  background-color: #222;
+  background-color: ${colors.background};
 `
 const Logo = styled(Link)`
-  color: white;
+  color: ${colors.text};
   text-decoration: none;
 `
 const Wrapper = styled.div`
@@ -17,12 +18,12 @@ const Wrapper = styled.div`
   padding: 20px 0;
 `
 const NavLink = styled(Link)`
-  color: #aaa;
+  color: ${colors.textDim};
   text-decoration: none;
 `
 const StyledNav = styled.nav`
   display: flex;
-  gap: 15px;
+  gap: ${spacing.medium}px;
 `
 const Header = () => {
   return (

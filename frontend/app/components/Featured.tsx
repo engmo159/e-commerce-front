@@ -8,10 +8,12 @@ import Products from '../types/products'
 import config from '../config.json'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
+import { colors } from '../theme/colors'
+import { spacing } from '../theme/spacing'
 
 const Bg = styled.div`
-  background-color: #222;
-  color: #fff;
+  background-color: ${colors.background};
+  color: ${colors.text};
   padding: 50px 0;
 `
 const Title = styled.h1`
@@ -20,13 +22,13 @@ const Title = styled.h1`
   font-size: 3rem;
 `
 const Disc = styled.p`
-  color: #aaa;
+  color: ${colors.textDim};
   font-size: 0.8rem;
 `
 const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
-  gap: 40px;
+  gap: ${spacing.huge}px;
   img {
     max-width: 100%;
   }
@@ -38,8 +40,8 @@ const Column = styled.div`
 `
 const ButtonsWrapper = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 25px;
+  gap: ${spacing.small}px;
+  margin-top: ${spacing.large}px;
 `
 
 const DynamicImage = dynamic(() =>
@@ -56,8 +58,6 @@ const Featured: FC = () => {
         `${backendURL}/products/${featuredProductId}`
       )
       setFeaturedProduct(data)
-      console.log('Fetched data:', data)
-      console.log('image:', data?.imageUrl[0])
     } catch (error: any) {
       console.error('Error fetching data:', error.message)
     }

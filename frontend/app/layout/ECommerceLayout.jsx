@@ -3,9 +3,9 @@ import Header from '../components/Header'
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 body{
 padding:0;
 margin:0;

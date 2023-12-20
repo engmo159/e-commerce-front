@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
+import { colors } from '../theme/colors'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
@@ -19,20 +20,20 @@ const StyledButton = styled.button.withConfig({
   display: inline-flex;
   align-items: center;
 
-  ${props =>
+  ${(props: { size: string }) =>
     props.size === 'l' &&
     css`
       font-size: 1.2rem;
       padding: 10px 20px;
     `};
-  ${props =>
+  ${(props: { primary: boolean }) =>
     props.primary &&
     css`
-      background-color: #5542f6;
-      border: 1px solid #5542f6;
+      background-color: ${colors.palette.blue};
+      border: 1px solid ${colors.palette.blue};
       color: #fff;
     `};
-  ${props =>
+  ${(props: { white: boolean; outline: boolean }) =>
     props.white &&
     props.outline &&
     css`
