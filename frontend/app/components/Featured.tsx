@@ -2,14 +2,15 @@
 import styled from 'styled-components'
 import Center from './Center'
 import Button from './Button'
-import { Cart } from '@/public/images/Svg'
-import { FC, useEffect, useState } from 'react'
+import Cart from '@/public/images/Cart'
+import { FC, useContext, useEffect, useState } from 'react'
 import Products from '../types/products'
 import config from '../config.json'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { colors } from '../theme/colors'
 import { spacing } from '../theme/spacing'
+import { CartContext } from '../context/CartContextProvider'
 
 const Bg = styled.div`
   background-color: ${colors.background};
@@ -62,9 +63,14 @@ const Featured: FC = () => {
       console.error('Error fetching data:', error.message)
     }
   }
+
   useEffect(() => {
     getFeaturedProducts()
   }, [])
+  const { addProducts }: any = useContext(CartContext)
+  const addFeaturedToCart = () => {
+    addProducts(featuredProduct?._id)
+  }
   return (
     <Bg>
       <Center>
@@ -78,7 +84,7 @@ const Featured: FC = () => {
                 <Button white outline>
                   Read more
                 </Button>
-                <Button primary>
+                <Button white onClick={addFeaturedToCart}>
                   <Cart />
                   Add to cart
                 </Button>

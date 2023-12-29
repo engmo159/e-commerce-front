@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import Center from './Center'
 import { colors } from '../theme/colors'
 import { spacing } from '../theme/spacing'
+import { useContext } from 'react'
+import { CartContext } from '../context/CartContextProvider'
+import Products from '../types/products'
 const StyledHeader = styled.header`
   background-color: ${colors.background};
 `
@@ -26,6 +29,8 @@ const StyledNav = styled.nav`
   gap: ${spacing.medium}px;
 `
 const Header = () => {
+  const { cartProducts }: { cartProducts?: Products[] } =
+    useContext(CartContext)
   return (
     <>
       <StyledHeader>
@@ -37,7 +42,7 @@ const Header = () => {
               <NavLink href={'/products'}>All Products</NavLink>
               <NavLink href={'/categories'}>Categories</NavLink>
               <NavLink href={'/account'}>Account</NavLink>
-              <NavLink href={'/cart'}>Cart (0)</NavLink>
+              <NavLink href={'/cart'}>Cart ({cartProducts?.length})</NavLink>
             </StyledNav>
           </Wrapper>
         </Center>

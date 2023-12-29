@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express'
 import {
   createproduct,
   deleteproduct,
+  fetchSortedProducts,
   fetchproducts,
   fetchproductsById,
   updateproduct,
@@ -12,6 +13,14 @@ const router = Router()
 router.get('/', async (req: Request, res: Response) => {
   try {
     const data = await fetchproducts()
+    res.status(200).json(data)
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message })
+  }
+})
+router.get('/sorted', async (req: Request, res: Response) => {
+  try {
+    const data = await fetchSortedProducts()
     res.status(200).json(data)
   } catch (err: any) {
     res.status(500).json({ error: err?.message })

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import ECommerceLayout from './layout/ECommerceLayout'
-import { Roboto } from 'next/font/google'
+import { Poppins } from 'next/font/google'
+import CartContextProvider from './context/CartContextProvider'
 
-const roboto = Roboto({
-  weight: ['400', '700'],
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
 })
 
@@ -19,10 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={roboto.className}>
-        <ECommerceLayout />
+      <body className={poppins.className}>
+        <CartContextProvider>
+          <ECommerceLayout />
 
-        {children}
+          {children}
+        </CartContextProvider>
       </body>
     </html>
   )

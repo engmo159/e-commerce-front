@@ -1,4 +1,5 @@
 interface Products {
+  map(product: any): import('react').ReactNode
   _id: string
   title: string
   description: string

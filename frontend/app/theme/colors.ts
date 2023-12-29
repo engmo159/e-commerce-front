@@ -11,7 +11,7 @@ const palette = {
 
   pink: '#FB2E86',
   red: '#FB2448',
-  blue: '#5542f6',
+  blue: '#4C1D95',
   offNavyBlue: '#3F509E',
   navyBlue: '#151875',
   purple: '#7E33E0',
@@ -21,6 +21,8 @@ const palette = {
   darkBlue: '#0D0E43',
   darkGray: '#222',
   gray: '#aaa',
+  lightGray: '#eee',
+  darkGreen: '#0D3D29',
 }
 
 export const colors = {
@@ -30,6 +32,7 @@ export const colors = {
    * semantic names as much as possible.
    */
   palette,
+  primary: palette.darkGreen,
   /**
    * A helper for making something see-thru.
    */
@@ -46,6 +49,7 @@ export const colors = {
    * The default color of the screen background.
    */
   background: palette.darkGray,
+  pageBackground: palette.lightGray,
   /**
    * The default border color.
    */

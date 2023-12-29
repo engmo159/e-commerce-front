@@ -19,21 +19,31 @@ const StyledButton = styled.button.withConfig({
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-
-  ${(props: { size: string }) =>
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  ${(props: ButtonProps) =>
     props.size === 'l' &&
     css`
       font-size: 1.2rem;
       padding: 10px 20px;
     `};
-  ${(props: { primary: boolean }) =>
+  ${(props: ButtonProps) =>
     props.primary &&
+    !props.outline &&
     css`
-      background-color: ${colors.palette.blue};
-      border: 1px solid ${colors.palette.blue};
+      background-color: ${colors.primary};
+      border: 1px solid ${colors.primary};
       color: #fff;
     `};
-  ${(props: { white: boolean; outline: boolean }) =>
+  ${(props: ButtonProps) =>
+    props.primary &&
+    props.outline &&
+    css`
+      background-color: ${colors.transparent};
+      border: 1px solid ${colors.primary};
+      color: ${colors.primary};
+    `};
+  ${(props: ButtonProps) =>
     props.white &&
     props.outline &&
     css`
