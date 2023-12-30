@@ -5,6 +5,7 @@ import {
   fetchSortedProducts,
   fetchproducts,
   fetchproductsById,
+  findCartProducts,
   updateproduct,
 } from '../services/products'
 
@@ -26,6 +27,16 @@ router.get('/sorted', async (req: Request, res: Response) => {
     res.status(500).json({ error: err?.message })
   }
 })
+
+router.post('/cartIds', async (req: Request, res: Response) => {
+  try {
+    const cartProducts = await findCartProducts(req.body.ids)
+    res.status(200).json(cartProducts)
+  } catch (err: any) {
+    res.status(400).json({ error: err?.message })
+  }
+})
+
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params
@@ -38,6 +49,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.post('/', async (req: Request, res: Response) => {
   try {
+    console.log(req)
     const newCategory = await createproduct(req.body)
     res.status(200).json(newCategory)
   } catch (err: any) {

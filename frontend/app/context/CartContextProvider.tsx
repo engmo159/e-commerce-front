@@ -3,9 +3,9 @@ import { FC, createContext, useEffect, useState, ReactNode } from 'react'
 import Products from '../types/products'
 
 interface CartContextType {
-  cartProducts: Products[]
-  setCartProducts: React.Dispatch<React.SetStateAction<Products[]>>
-  addProducts: (product: Products) => void
+  cartProducts: string[]
+  setCartProducts: React.Dispatch<React.SetStateAction<string[]>>
+  addProducts: (product: string) => void
 }
 
 interface CartContextProviderProps {
@@ -20,9 +20,9 @@ export const CartContext = createContext<CartContextType>({
 
 const CartContextProvider: FC<CartContextProviderProps> = ({ children }) => {
   const ls = typeof window !== 'undefined' ? window.localStorage : null
-  const [cartProducts, setCartProducts] = useState<Products[]>([])
+  const [cartProducts, setCartProducts] = useState<string[]>([])
 
-  const addProducts = (product: Products) => {
+  const addProducts = (product: string) => {
     setCartProducts(prev => [...prev, product])
   }
 

@@ -6,6 +6,6 @@ export const spacing = {
   medium: 16,
   large: 24,
   extraLarge: 32,
-  huge: 48,
+  huge: 40,
   massive: 64,
 }

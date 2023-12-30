@@ -1,8 +1,12 @@
+import mongoose, { Types } from 'mongoose'
 import productsModel from '../models/products'
 import Products from '../types/products'
 
 export const fetchproducts = async () => {
   return await productsModel.find()
+}
+export const findCartProducts = async (ids: string) => {
+  return await productsModel.find({ _id: ids })
 }
 export const fetchSortedProducts = async () => {
   return await productsModel.find({}, null, { sort: { _id: -1 }, limit: 10 })

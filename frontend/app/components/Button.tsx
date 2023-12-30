@@ -8,6 +8,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean
   white?: boolean
   outline?: boolean
+  block?: boolean
+  black?: boolean
 }
 
 const StyledButton = styled.button.withConfig({
@@ -51,6 +53,24 @@ const StyledButton = styled.button.withConfig({
       color: #fff;
       border: 1px solid white;
     `};
+  ${(props: ButtonProps) =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+    `}
+  ${(props: ButtonProps) =>
+    props.black &&
+    (props.outline
+      ? css`
+          background-color: ${colors.palette.neutral900};
+          color: ${colors.palette.neutral100};
+          border: 1px solid #fff;
+        `
+      : css`
+          background-color: ${colors.palette.neutral900};
+          color: ${colors.palette.neutral100};
+        `)}
 `
 
 const Button: FC<ButtonProps> = ({ children, ...rest }) => {
