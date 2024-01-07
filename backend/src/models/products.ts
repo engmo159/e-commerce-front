@@ -1,6 +1,5 @@
 import { Schema, model, models } from 'mongoose'
 import Products from '../types/products'
-import { object } from 'zod'
 
 const productsSchema = new Schema<Products>(
   {

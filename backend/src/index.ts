@@ -2,16 +2,20 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import 'dotenv/config'
-
+import bodyParser from 'body-parser'
 import productsRoutes from './routes/products'
 import categoriesRouters from './routes/categories'
+import orderRouters from './routes/order'
+import stripeRouters from './routes/webhook'
 
 const app = express()
 const port = process.env.PORT || 3000
 
-// Middlewares
-app.use(express.json()) // Add this line to enable JSON parsing in the request body
+// parse application/json
+
 app.use(cors())
+// to corect unicode data from form in client side
+app.use(express.json())
 
 // DB Connection (database name: e-commerce)
 mongoose
@@ -22,6 +26,8 @@ mongoose
 // Routers
 app.use('/products', productsRoutes)
 app.use('/categories', categoriesRouters)
+app.use('/order', orderRouters)
+app.use('/webhook', stripeRouters)
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)

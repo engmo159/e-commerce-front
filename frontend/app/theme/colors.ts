@@ -21,7 +21,9 @@ const palette = {
   darkBlue: '#0D0E43',
   darkGray: '#222',
   gray: '#aaa',
-  lightGray: '#eee',
+  lightGray: '#ccc',
+  lighterGray: '#f0f0f0',
+
   darkGreen: '#0D3D29',
 }
 
@@ -33,6 +35,7 @@ export const colors = {
    */
   palette,
   primary: palette.darkGreen,
+  tHead: palette.lightGray,
   /**
    * A helper for making something see-thru.
    */
