@@ -1,8 +1,16 @@
-import express, { Router, Request, Response } from 'express'
+import express, { Router } from 'express'
 import { buffer } from 'micro'
-import bodyParser from 'body-parser'
-const stripe = require('stripe')(process.env.STRIPE_SK)
+import Stripe from 'stripe'
 
+console.log('start')
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+const stripe = new Stripe(process.env.STRIPE_SECRET ?? '', {
+  apiVersion: '2023-10-16',
+})
 const router = Router()
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
@@ -12,41 +20,46 @@ const endpointSecret =
 router.post(
   '/',
   express.raw({ type: 'application/json' }),
-  async (req: Request, res: Response) => {
-    const sig = req.headers['stripe-signature']
+  async (req, res) => {
+    const rawBody = await buffer(req)
+
+    const sig: any = req.headers['stripe-signature']
 
     let event
+    if (endpointSecret) {
+      try {
+        // Convert req.body to Buffer explicitly
 
-    try {
-      // Convert req.body to Buffer explicitly
-
-      event = stripe.webhooks.constructEvent(
-        await buffer(req),
-        sig,
-        endpointSecret
-      )
-      console.log('Received webhook payload:', req)
-      res.json()
-    } catch (err: any) {
-      res.status(400).json({ error: `Webhook Error: ${err.message}` })
-      return
+        event = stripe.webhooks.constructEvent(
+          rawBody.toString(),
+          sig,
+          endpointSecret
+        )
+        console.log('Received webhook payload:', req)
+        res.status(200).end()
+      } catch (err: any) {
+        console.log(`Webhook Error: ${err.message}`)
+        res.status(400).json({ error: `Webhook Error: ${err.message}` })
+        return
+      }
     }
-
-    // Handle the event
-    switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntentSucceeded = event.data.object
-        // Then define and call a function to handle the event payment_intent.succeeded
-        console.log(paymentIntentSucceeded)
-        break
-      // ... handle other event types
-      default:
-        console.log(`Unhandled event type ${event.type}`)
+    if (event) {
+      // Handle the event
+      switch (event.type) {
+        case 'payment_intent.succeeded':
+          const paymentIntentSucceeded = event.data.object
+          // Then define and call a function to handle the event payment_intent.succeeded
+          console.log(paymentIntentSucceeded)
+          break
+        // ... handle other event types
+        default:
+          console.log(`Unhandled event type ${event.type}`)
+      }
     }
 
     // Return a 200 response to acknowledge receipt of the event
     // Return a 200 response to acknowledge receipt of the event
-    res.json({ received: true })
+    res.end()
   }
 )
 

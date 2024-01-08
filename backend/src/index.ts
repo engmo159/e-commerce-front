@@ -2,12 +2,10 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import 'dotenv/config'
-import bodyParser from 'body-parser'
 import productsRoutes from './routes/products'
 import categoriesRouters from './routes/categories'
 import orderRouters from './routes/order'
 import stripeRouters from './routes/webhook'
-
 const app = express()
 const port = process.env.PORT || 3000
 
